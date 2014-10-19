@@ -44,37 +44,47 @@ class cloud:
         self.image = pygame.transform.scale(self.image, (200,100))
 
     def animate_cloud(self):
+
         
-        # Clear cloud.
-        if self.image != None:
-            self.image = None
+        screen.blit(self.image, (WIDTH - self.x, self.y))
 
+        while self.x != -250:
 
-        # Render cloud in initial position.
-        screen.blit(self.image,(self.x, self.y))
+            # Render cloud in initial position.
+            screen.blit(self.image,(self.x, self.y))
 
-        # Move cloud.
-        screen.blit(self.image,(self.x-5, self.y))
+            # "Clear" cloud.
+            screen.fill((135,206,250))
 
-        # screen.blit(self.image,(self.x, self.y))
+            # Move cloud.
+            screen.blit(self.image,(self.x-self.speed, self.y))
+            pygame.display.update()
+
+            self.x = self.x-self.speed
 
     def move_cloud(self):
-        screen.blit(self.image,(self.x-1, self.y-1))
-
-
-
+    ''' Update the position. '''
 
 
 # main game loop
 while True:
     screen.fill((135,206,250))
-    cloud0 = cloud(100,200,screen)
-    cloud0.animate_cloud()
+
+    cloud_list = [cloud(WIDTH,200,screen), cloud(WIDTH,100,screen)]
+
+    for i in cloud_list:
+        i.animate_cloud()
+
+
+
+    # cloud0 = cloud(WIDTH,200,screen)
+    # cloud0.animate_cloud()
+    # cloud1 = cloud(WIDTH,400,screen)
+    # cloud1.animate_cloud()
 
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
 
-    pygame.display.update()
     clock.tick(50)
