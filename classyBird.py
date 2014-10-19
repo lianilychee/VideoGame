@@ -33,6 +33,8 @@ pygame.display.set_caption('Flappy Bird!')
 
 
 class cloud:
+    ''' Cloud class; consists of initializing and animating object. '''
+
     def __init__(self,x,y,screen):
         self.speed = 1
         self.x = x
@@ -40,40 +42,83 @@ class cloud:
         self.create_cloud()
 
     def create_cloud(self):
+        ''' Initialize cloud with cloud image. '''
+
         self.image = pygame.image.load('images/cloud.png')
         self.image = pygame.transform.scale(self.image, (200,100))
 
-    def animate_cloud(self):
+    def move(self):
+         self.x = self.x-self.speed
 
-        
-        screen.blit(self.image, (WIDTH - self.x, self.y))
+    def render(self):
 
-        while self.x != -250:
+        #screen.blit(self.image, (WIDTH - self.x, self.y))
 
-            # Render cloud in initial position.
-            screen.blit(self.image,(self.x, self.y))
+        # while self.x != -250:
 
-            # "Clear" cloud.
-            screen.fill((135,206,250))
+        # Render cloud in initial position.
+        screen.blit(self.image,(self.x, self.y))
 
-            # Move cloud.
-            screen.blit(self.image,(self.x-self.speed, self.y))
-            pygame.display.update()
+        # "Clear" cloud.
+        # screen.fill((135,206,250))
 
-            self.x = self.x-self.speed
+# class brick:
 
-    def move_cloud(self):
-    ''' Update the position. '''
+#     def __init__(self,x,y,screen):
+#         self.speed = 1
+#         self.x = x
+#         self.y = y
+#         self.create_brick()
+
+#     def create_brick(self):
+
+#         self.image = pygame.image.load('images/brick.png')
+#         self.image = pygame.transform.scale(self.image, (200,100))
+
+    
+#     def move(self):
+#          self.x = self.x-self.speed
+#          print self.x
+#          print self.speed
+
+#     def render(self):
+
+#         screen.blit(self.image, (WIDTH - self.x, self.y))
+
+#         # while self.x != -250:
+
+#         # Render cloud in initial position.
+#         screen.blit(self.image,(self.x, self.y))
+
+#         # "Clear" cloud.
+#         screen.fill((135,206,250))
+
+#         # Move cloud.
+#         screen.blit(self.image,(self.x-self.speed, self.y))
+
+#         self.move()
 
 
 # main game loop
+cloud_list = [cloud(WIDTH,200,screen), cloud(WIDTH+200,100,screen)]
+
 while True:
     screen.fill((135,206,250))
 
-    cloud_list = [cloud(WIDTH,200,screen), cloud(WIDTH,100,screen)]
+    
+    # brick_list = [brick(WIDTH,100,screen), brick(WIDTH,300,screen)] 
+
+    # for i in brick_list:
+    #     i.render()
+    #     i.move()
 
     for i in cloud_list:
-        i.animate_cloud()
+        i.render()
+        i.move()
+
+    pygame.display.update()
+
+
 
 
 
